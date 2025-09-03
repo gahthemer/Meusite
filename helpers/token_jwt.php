@@ -11,12 +11,12 @@
             "exp" => time() + (60 * (60 * 1)),
             "sub" => $user
         ];
-        return jwt :: encode($payload,SECRET_KEY,"SH256");
+        return jwt :: encode($payload,SECRET_KEY,"HS256");
     }
 
     function validateToken($token){
         try{
-            $key = new Key(SECRET_KEY,"SH256");
+            $key = new Key(SECRET_KEY,"HS256");
             $decode = jwt :: decode ($token , $key);
             return $decode -> sub;
             
