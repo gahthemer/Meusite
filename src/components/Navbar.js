@@ -7,7 +7,7 @@ export default function NavBar() {
     <div class="container-fluid">
 
     <a class="navbar-brand" href="home">
-      <img src ="public/assets/img/logo.png" style = "width: 50px; heigth:50px">
+      <img src ="public/assets/img/logohotel.png" style = "width: 50px; heigth:50px">
     
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

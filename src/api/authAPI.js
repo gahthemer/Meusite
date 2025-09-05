@@ -1,12 +1,17 @@
 export async function loginRequest(email,senha) {
     
-    const response = await fetch ("/api/login.php",{
+    const dados = { email,password: senha};
+
+    const response = await fetch ("api/login",{
         method: "POST",
         headers: {
             "Accept":"application/json",
-            "content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            "content-Type": "application/json"
         },
-        body: new URLSearchParams({email,senha}).toString(),
+
+
+        body : json.stringify(dados),
+        //body: new URLSearchParams({email,senha}).toString(),
 
         credentials: "same-origin"
     });
@@ -18,10 +23,29 @@ export async function loginRequest(email,senha) {
     catch{
         data = null;
     }
+
+    if (!data || !data.token){
+        const message = "Token ausente";
+        return {ok: false, token:null ,raw: data, message};
+    }
+
     return {
         ok: true,
-        user: data.user ?? null,
+        token: data.token,
         raw: data
     };
 
+
+}
+
+export function saveToken(token){
+    localStorage.setItem("auth_token",token);
+}
+
+export function getToken(){
+   return localStorage.getItem("auth_token");
+}
+
+export function clearToken(){
+    localStorage.removeItem("auth_token");
 }

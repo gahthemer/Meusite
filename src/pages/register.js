@@ -1,12 +1,21 @@
 import LoginForm from "../components/LoginForm.js";
 import NavBar from "../components/Navbar.js";
+import Footer from "../components/Footer.js";
 
 export default function renderRegisterPage() { 
-    const nav = document.getElementById('navbar');
-    nav.innerHTML = '';
+const nav = document.getElementById('navbar');
+        nav.innerHTML = '';
+    
+        const navbar = NavBar();
+        
 
-    const navbar = NavBar();
-    nav.appendChild(navbar);
+        const foot = document.getElementById('footer');
+        nav.innerHTML = '';
+    
+        const footer = Footer();
+        nav.appendChild(navbar);
+        foot.appendChild(footer);
+    
 
     const formulario = LoginForm();
 
