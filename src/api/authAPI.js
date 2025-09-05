@@ -10,7 +10,7 @@ export async function loginRequest(email,senha) {
         },
 
 
-        body : json.stringify(dados),
+        body : JSON.stringify(dados),
         //body: new URLSearchParams({email,senha}).toString(),
 
         credentials: "same-origin"

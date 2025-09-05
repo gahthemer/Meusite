@@ -1,4 +1,4 @@
-import { loginRequest } from "../api/authAPI.js";
+import { loginRequest, saveToken } from "../api/authAPI.js";
 import LoginForm from "../components/LoginForm.js";
 import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
@@ -23,22 +23,22 @@ export default function renderLoginPage() {
     const contentForm = formulario.querySelector('form');
     const inputEmail = contentForm.querySelector('input[type="email"]');
     const inputSenha = contentForm.querySelector('input[type="password"]');
-    const btn = contentForm.querySelector('button[type="submit"]');
+    //const btn = contentForm.querySelector('button[type="submit"]');
 
 
     contentForm.addEventListener("submit",async (e) => {
         e.preventDefault();
-        const email = inputEmail.ariaValueMax.trim();
-        const senha = inputSenha.ariaValueMax.trim();
+        const email = inputEmail.value.trim();
+        const senha = inputSenha.value.trim();
 
         try{
             const result = await loginRequest (email,senha);
-            console.log("Login realizado com sucesso!");
-            window.location.pathname = Meusite/home;
+            saveToken(result.token);
+            console.log("Login realizado com sucesso!" + result.token);
+            window.location.pathname = "/Meusite/home";
         }
         catch{
             console.log("Erro inesperado!");
-
         }
 
     });
