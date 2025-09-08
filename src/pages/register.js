@@ -2,50 +2,41 @@ import LoginForm from "../components/LoginForm.js";
 import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 
-export default function renderRegisterPage() { 
-const nav = document.getElementById('navbar');
-        nav.innerHTML = '';
-    
-        const navbar = NavBar();
-        
+export default function renderRegisterPage() {
+  // Clear and set up the navbar
+  const nav = document.getElementById("navbar");
+  nav.innerHTML = "";
+  const navbar = NavBar();
+  nav.appendChild(navbar);
 
-        const foot = document.getElementById('footer');
-        nav.innerHTML = '';
-    
-        const footer = Footer();
-        nav.appendChild(navbar);
-        foot.appendChild(footer);
-    
+  // Clear and set up the footer
+  const foot = document.getElementById("footer");
+  foot.innerHTML = "";
+  const footer = Footer();
+  foot.appendChild(footer);
 
-    const formulario = LoginForm();
+  // Create and configure the registration form
+  const formulario = LoginForm();
+  const titulo = formulario.querySelector("h1");
+  titulo.textContent = "Cadastre-se";
 
-    const titulo = formulario.querySelector('h1');
-    titulo.textContent = "Cadastre-se";
+  // Select the form element from LoginForm component
+  const contentForm = formulario.querySelector("form");
 
-    //Seleciono o elemento form que está presente em ./componentes/LoginForm.js
-    const contentForm = formulario.querySelector('form');
+  // Create and style input for name, insert before email input
+  const nome = document.createElement("input");
+  nome.type = "text";
+  nome.placeholder = "Digite seu nome";
+  const inputEmail = formulario.querySelector('input[type="email"]');
+  contentForm.insertBefore(nome, inputEmail);
 
-    //Crio o input para nome, estilizo e adiciono em contentForm
-    const nome = document.createElement('input');
-    nome.type = 'text';
-    nome.placeholder = "Digite seu nome";
+  // Create and style input for password confirmation, insert before submit button
+  const confSenha = document.createElement("input");
+  confSenha.type = "password";
+  confSenha.placeholder = "Confirme sua senha";
+  contentForm.insertBefore(confSenha, contentForm.children[3]);
 
-    /*Para adicionar input nome ao contentForm, preciso localizar onde está o input
-    email, pois quero necessariuamente adicionar anteriormente a ele */
-    const inputEmail = formulario.querySelector('input[type="email"]');
-    contentForm.insertBefore(nome, inputEmail);
-
-    //Criar o input para confirmar senha e adicionar em contentForm
-    const confSenha = document.createElement('input');
-    confSenha.type = 'password';
-    confSenha.placeholder = "Confirme sua senha";
-
-    /*Adicionar confSenha como "child" de Form que já contém 4 elementos: input nome[0],
-    input email[1], input password[2], button btn[3], ao adicionar input confSenha 
-    antes de btn[3] ele ocupará a posição [3] e button btn passará para [4] */
-    contentForm.insertBefore(confSenha, contentForm.children[3]);
-
-    const btnRegister = formulario.querySelector('button');
-    btnRegister.textContent = "Criar conta!";
+  // Update submit button text
+  const btnRegister = formulario.querySelector("button");
+  btnRegister.textContent = "Criar conta!";
 }
-
