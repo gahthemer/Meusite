@@ -1,8 +1,11 @@
 export default function Hero() {
     const containerHero = document.createElement('div');
+    containerHero.className = 'hero w-100 d-flex justify-content-center';
+
   /*Incorporar os arquivos no inner html*/
 
   containerHero.innerHTML = `
+  <div class = "hero-frame rounded-4  w-100">
  <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -23,6 +26,7 @@ export default function Hero() {
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+  </div>
 </div>`;
   
 return containerHero;
