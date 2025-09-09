@@ -32,7 +32,9 @@ export default function renderLoginPage() {
       const result = await loginRequest(email, senha);
       saveToken(result.token);
       console.log("Login realizado com sucesso! " + result.token);
-      // window.location.pathname = "/Meusite/home"; // Commented out redirect
+
+      window.location.pathname = "/Meusite/home"; // Commented out redirect
+      
     } catch {
       console.log("Erro inesperado!");
     }

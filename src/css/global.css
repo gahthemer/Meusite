@@ -14,3 +14,18 @@
     font-size: 17px;
 }
 
+#root {
+    flex-direction: column;
+}
+
+.containerCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+
+    width: 75%;
+    margin-top: 40px;
+}
