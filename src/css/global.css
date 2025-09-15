@@ -31,22 +31,17 @@
 }
 
 .hero-frame {
-    height: 27vh;
-    max-width: 1200px;
-    margin: 0 auto;
     overflow: hidden;
-    background: #f3f5f7;
 }
 
-.hero-img{
-    width: 100%;
-    height: 100%;
+.hero img,.hero{
     object-fit: cover;
     object-position: center;
+    height: 70vh;
 }
 
 @media (max-width: 576px){
-    .hero-frame{
+    .hero img,.hero{
         height: 50vh;
     }
 }

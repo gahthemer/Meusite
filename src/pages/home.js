@@ -2,6 +2,8 @@ import Hero from "../components/Hero.js";
 import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import Card from "../components/card.js";
+import imput from "../components/DateSelector.js";
+import DateSelector from "../components/DateSelector.js";
 
 export default function renderHomePage() {
     // Get DOM elements
@@ -26,11 +28,13 @@ export default function renderHomePage() {
     const hero = Hero();
     const card = Card(); // Certifique-se de que Card() retorna um elemento DOM
     const footer = Footer();
+    const date = DateSelector ();
 
     // Append components to the correct DOM elements
     nav.appendChild(navbar);
     divRoot.appendChild(hero);
     divRoot.appendChild(card); // Corrigido: anexa cards ao elemento com ID 'cards'
+    divRoot.appendChild(date);
     foot.appendChild(footer);
 
 }
