@@ -26,16 +26,22 @@ export default function renderHomePage() {
     // Create components
     const navbar = NavBar();
     const hero = Hero();
-    const card = Card(); // Certifique-se de que Card() retorna um elemento DOM
-    const footer = Footer();
     const date = DateSelector ();
+    const footer = Footer();
+    
 
     // Append components to the correct DOM elements
     nav.appendChild(navbar);
     divRoot.appendChild(hero);
-    divRoot.appendChild(card); // Corrigido: anexa cards ao elemento com ID 'cards'
     divRoot.appendChild(date);
     foot.appendChild(footer);
+
+    for( var i=0; i < 3; i++){
+
+        const card = Card();
+        divRoot.appendChild(card);
+
+    }
 
 }
 
