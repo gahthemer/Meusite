@@ -40,6 +40,14 @@
     height: 70vh;
 }
 
+.cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
 @media (max-width: 576px){
     .hero img,.hero{
         height: 50vh;

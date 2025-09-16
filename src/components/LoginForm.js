@@ -1,6 +1,7 @@
 export default function LoginForm() {
     const divRoot = document.getElementById('root');
     divRoot.innerHTML = '';
+    divRoot.style.height = "100vh";
 
     const container = document.createElement('div');
     container.className = 'card p-4 shadow-lg';

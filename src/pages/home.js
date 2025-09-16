@@ -36,16 +36,15 @@ export default function renderHomePage() {
     divRoot.appendChild(date);
     foot.appendChild(footer);
 
-    for( var i=0; i < 3; i++){
+    const cardsGroup = document.createElement('div');
+    cardsGroup.className = "cards";
 
-        const card = Card();
-        divRoot.appendChild(card);
-
+    for (var i=0; i < 3; i++) {
+        const cards = Card();
+        cardsGroup.appendChild(cards);
     }
+
+    divRoot.appendChild(cardsGroup);
 
 }
 
-// Execute após o DOM estar carregado
-document.addEventListener('DOMContentLoaded', () => {
-    renderHomePage();
-});
