@@ -3,24 +3,34 @@
     require_once __DIR__ ."/controllers/Password.php";
     require_once __DIR__ ."/helpers/token_jwt.php";
     require_once __DIR__ ."/controllers/QuartoController.php";
+    require_once __DIR__ ."/controllers/ClienteController.php";
 
+        // $data = [
+           // "nome"=>"Quarterao",
+          //  "numero"=> 10,
+           // "qnt_casal"=> 2,
+          //  "qnt_solteiro"=> 2,
+            //"preco"=> 500,
+           // "disponivel"=> 10
+        //];
 
-         $data = [
-            "nome"=>"Quarterao",
-            "numero"=> 10,
-            "qnt_casal"=> 2,
-            "qnt_solteiro"=> 2,
-            "preco"=> 500,
-            "disponivel"=> 10
+        $data = [
+            "nome" => "Claudiney",
+            "email" => "Claudineybritto@gmail",
+            "telefone" => "707070707060",
+            "cpf" => "5367828420",
+            "senha" => "0987654321",
+            "cargo_id" => 0
         ];
 
-     
 
+    ClienteController :: create($conn,$data);
 
+    //QuartoController::post($conn,$data);
     //QuartoController :: update ($conn,31,$data);
     //QuartoController :: delete ($conn,21);
     //QuartoController :: getById ($conn,21);
-    QuartoController :: getAll ($conn);
+     //QuartoController :: getAll ($conn);
     //QuartoController :: create($conn,$data);
     //AuthController::login($conn,$data);
 

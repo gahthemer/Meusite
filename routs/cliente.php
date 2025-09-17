@@ -1,27 +1,27 @@
 <?php
 
-require_once __DIR__ . "/../controllers/QuartoController.php";
+require_once __DIR__ . "/../controllers/ClienteController.php";
 
     if ( $_SERVER['REQUEST_METHOD'] === "GET" ){
         $id = $segments[2] ?? null;
 
         if(isset($id)){
-            QuartoController::getById($conn,$id);
+            ClienteController::getById($conn,$id);
         }
         else{
-            QuartoController::getAll($conn);
+            ClienteController::getAll($conn);
         }
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "POST" ){
         $data = json_decode( file_get_contents('php://input'), true );
-        QuartoController::create($conn,$data);
+        ClienteController::create($conn,$data);
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "PUT" ){
         $data = json_decode( file_get_contents('php://input'), true );
         $id = $data ['id'];
-        QuartoController::update($conn,$id,$data);
+        ClienteController::update($conn,$id,$data);
     }
 
 
@@ -29,7 +29,7 @@ require_once __DIR__ . "/../controllers/QuartoController.php";
         $id = $segments[2] ?? null;
 
         if(isset($id)){
-            QuartoController::delete($conn,$id);
+            ClienteController::delete($conn,$id);
         }
         else{
             jsonResponse(['message'=>"id do quarto obrigatorio"],403);
