@@ -4,6 +4,11 @@
     class QuartoController{
 
         public static function create($conn,$data){
+
+            if(!isset($data['disponivel'])){
+                return jsonResponse(['message'=>"Erro no campo"]);
+            }
+
             $resultado = QuartoModel :: create($conn,$data);
             if($resultado){
               return jsonResponse(['message' => "Quarto reservado com sucesso"]);

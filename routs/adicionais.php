@@ -1,27 +1,27 @@
 <?php
 
-require_once __DIR__ . "/../controllers/ClienteController.php";
+require_once __DIR__ . "/../controllers/AdicionaisController.php";
 
     if ( $_SERVER['REQUEST_METHOD'] === "GET" ){
         $id = $segments[2] ?? null;
 
         if(isset($id)){
-            ClienteController::getById($conn,$id);
+            AdicionaisController::getById($conn,$id);
         }
         else{
-            ClienteController::getAll($conn);
+            AdicionaisController::getAll($conn);
         }
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "POST" ){
         $data = json_decode( file_get_contents('php://input'), true );
-        ClienteController::create($conn,$data);
+        AdicionaisController::create($conn,$data);
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "PUT" ){
         $data = json_decode( file_get_contents('php://input'), true );
         $id = $data ['id'];
-        ClienteController::update($conn,$id,$data);
+        AdicionaisController::update($conn,$id,$data);
     }
 
 
@@ -29,11 +29,12 @@ require_once __DIR__ . "/../controllers/ClienteController.php";
         $id = $segments[2] ?? null;
 
         if(isset($id)){
-            ClienteController::delete($conn,$id);
+            AdicionaisController::delete($conn,$id);
         }
         else{
-            jsonResponse(['message'=>"id do cliente obrigatorio"],403);
+            jsonResponse(['message'=>"id do adicional obrigatorio"],403);
         }
+
 
     } 
 
