@@ -1,8 +1,7 @@
 import Hero from "../components/Hero.js";
 import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
-import Card from "../components/card.js";
-import imput from "../components/DateSelector.js";
+import RoomCard from "../components/RoomCard.js";
 import DateSelector from "../components/DateSelector.js";
 
 export default function renderHomePage() {
@@ -40,7 +39,7 @@ export default function renderHomePage() {
     cardsGroup.className = "cards";
 
     for (var i=0; i < 3; i++) {
-        const cards = Card();
+        const cards = RoomCard(i);
         cardsGroup.appendChild(cards);
     }
 
