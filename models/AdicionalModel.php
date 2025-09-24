@@ -49,7 +49,7 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sii", 
             $data ["nome"],
-            $data ["numero"],
+            $data ["preco"],
             $id
         
         ); 

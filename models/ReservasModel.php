@@ -7,7 +7,7 @@ class ReservaModel{
         $sql = "INSERT INTO reservas (pedido_id, quarto_id, adicional_id, fim, inicio) VALUES (?, ?, ?, ?, ?)";
  
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iiiiss",
+        $stmt->bind_param("iiiss",
             $data['pedido_id'],
             $data['quarto_id'],
             $data['adicional_id'],
@@ -48,7 +48,7 @@ class ReservaModel{
         $sql = "UPDATE reservas SET pedido_id = ?, quarto_id = ?, adicional_id = ?,fim = ?,inicio = ? WHERE id = ?" ;
  
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iiiissi",
+        $stmt->bind_param("iiissi",
             $data ["pedido_id"],
             $data ["quarto_id"],
             $data ["adicional_id"],
@@ -57,6 +57,10 @@ class ReservaModel{
             $id
         );
         return $stmt->execute();
+    }
+
+    public static function disponivel($conn,$id,$data){
+        $sql = "SELECT";
     }
 }
        

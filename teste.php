@@ -6,6 +6,7 @@
     require_once __DIR__ ."/controllers/ClienteController.php";
     require_once __DIR__ ."/controllers/AdicionaisController.php";
     require_once __DIR__ . "/controllers/ReservasController.php";
+    require_once __DIR__ . "/controllers/PedidoController.php";
 
         // $data = [
            // "nome"=>"Quarterao",
@@ -32,17 +33,37 @@
         //];
     
 
-        $data = [
+       // $data = [
             
-            "pedido_id" => 4,
-            "quarto_id" => 34,
-           "adicional_id" => 7,
-            "fim" => "30/09/25",
-            "inicio" => "01/09/25"
+           // "pedido_id" => 4,
+           // "quarto_id" => 34,
+          // "adicional_id" => 7,
+          //  "fim" => "20/09/25",
+           // "inicio" => "01/09/25"
             
-        ];
+        //];
 
-        ReservasController :: create($conn,$data);
+            //$data = [
+            
+           // "usuario_id" => 5,
+           // "cliente_id" => 35,
+            //"data" => date("y-m-d H:i:s"),
+           // "pagamento" => "pix"
+           // ];
+
+    //PedidosController :: create($conn,$data);
+    //PedidosController :: getall($conn);
+    //PedidosController :: getById($conn,4);
+    //PedidosController :: delete($conn,5);
+    //PedidosController :: update($conn,4,$data);  
+
+
+
+    //ReservasController :: create($conn,$data);
+    //ReservasController :: getall($conn);
+    //ReservasController :: getById($conn,1);
+    //ReservasController :: delete($conn,1);
+    //ReservasController :: update($conn,2,$data);
 
      //AdicionaisController :: create($conn,$data);
      //AdicionaisController :: getall($conn);
