@@ -8,6 +8,9 @@ require_once __DIR__ . "/../controllers/QuartoController.php";
         if(isset($id)){
             QuartoController::getById($conn,$id);
         }
+        elseif(isset($id)){
+            QuartoController :: disponivel ($conn,$qnt,$fim,$inicio);
+        }
         else{
             QuartoController::getAll($conn);
         }

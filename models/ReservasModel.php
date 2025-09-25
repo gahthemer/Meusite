@@ -32,6 +32,7 @@ class ReservaModel{
         $stmt = $conn -> prepare ($sql);
         $stmt -> bind_param("i",$id);
         $stmt -> execute();
+
         return $stmt->get_result()->fetch_assoc();
     }
  
@@ -57,10 +58,6 @@ class ReservaModel{
             $id
         );
         return $stmt->execute();
-    }
-
-    public static function disponivel($conn,$id,$data){
-        $sql = "SELECT";
     }
 }
        

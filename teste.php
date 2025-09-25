@@ -83,7 +83,7 @@
     //QuartoController :: post($conn,$data);
     //QuartoController :: update ($conn,31,$data);
     //QuartoController :: delete ($conn,21);
-    //QuartoController :: getById ($conn,21);
+    //QuartoController :: getById ($conn,34);
     //QuartoController :: getAll ($conn);
     //QuartoController :: create($conn,$data);
  

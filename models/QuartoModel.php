@@ -63,6 +63,20 @@
         ); 
             return $stmt->execute();
     }
+
+    public static function disponivel($conn, $data) {
+        $sql = "SELECT q.*,(q.qnt_cama_casal * 2 + q.qnt_cama_solteiro) AS qtdFROM quartos q
+        WHERE q.disponivel = 1 AND (q.qnt_cama_casal * 2 + q.qnt_cama_solteiro) >= 4
+        AND q.id NOT IN (SELECT r.quarto_id FROM reservas r WHERE r.fim > '2025-09-01 14:00:00'  AND r.inicio < '2025-09-30 12:00:00' 
+);";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssi",
+            $data["r.fim"],
+            $data["r.inicio"],
+            $qnt
+        );
+        return $stmt->execute();
+    }
     
 
     
