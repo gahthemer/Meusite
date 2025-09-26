@@ -1,9 +1,12 @@
+
+
 <?php
+
+require_once __DIR__ . "/../controllers/Password.php";
+
 class Clientemodel{
  
     public static function create($conn, $data) {
-        
-        $hashedPassword = password_hash($data['senha'], PASSWORD_BCRYPT);
  
         $sql = "INSERT INTO clientes (nome, email, telefone, cpf, senha, cargo_id) VALUES (?, ?, ?, ?, ?, ?)";
  
@@ -13,7 +16,7 @@ class Clientemodel{
             $data['email'],
             $data['telefone'],
             $data['cpf'],
-            $hashedPassword, 
+            $data['senha'], 
             $data['cargo_id']
         );
  
@@ -55,7 +58,7 @@ class Clientemodel{
             $data ["email"],
             $data ["telefone"],
             $data ["cpf"],
-            $hashedPassword,
+            $data ["senha"],
             $data ["cargo_id"],
             $id
         );

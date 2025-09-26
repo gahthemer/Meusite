@@ -1,17 +1,20 @@
 <?php
 require_once __DIR__ . "/../models/clientemodel.php";
+require_once "Password.php";
 
     class ClienteController{
 
         public static function create($conn,$data){
+
+            $data['senha'] = Password::generateHash($data['senha']);
                 
-                $resultado = Clientemodel :: create($conn,$data);
-                if($resultado){
+            $resultado = Clientemodel :: create($conn,$data);
+            if($resultado){
                 return jsonResponse(['message' => "Cliente cadartrado com sucesso"]);
-                }else{
+            }else{
                 return jsonResponse(['message' => "Cliente nao cadastrado"], 404);
-                }
             }
+        }
 
         public static function getAll($conn){
             $listaQuarto = clientemodel::getAll($conn);
@@ -33,6 +36,7 @@ require_once __DIR__ . "/../models/clientemodel.php";
         }
 
         public static function update($conn,$id,$data){
+            $data['senha'] = Password::generateHash($data['senha']);
             $Atualizado = clientemodel :: update($conn,$id,$data);
             if($Atualizado){
               return jsonResponse(['message' => "Cliente atualizado com sucesso"]);

@@ -19,11 +19,11 @@
 
         //$data = [
             
-            //"nome" => "Gabriel",
-            //"email" => "GabrielThemer@gmail.com",
-           //"telefone" => "333333333",
-            //"cpf" => "5333333333'",
-            //"senha" => "0987654321",
+            //"nome" => "Neymar",
+            //"email" => "Neymar@gmail",
+           //"telefone" => "1000",
+            //"cpf" => "75785822101",
+            //"senha" => "nao cai",
             //"cargo_id" => 0
         //];
 
@@ -76,7 +76,7 @@
     //ClienteController :: getAll($conn);
     //ClienteController :: getById($conn,21);
     //ClienteController :: delete($conn,37);
-    //ClienteController :: update($conn,39,$data);
+    //ClienteController :: update($conn,35,$data);
    
  
  
