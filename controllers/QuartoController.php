@@ -46,12 +46,13 @@
         }
 
 
-    public static function disponivel($conn, $qnt, $fim, $inicio) {
-        // Exemplo: consulta ao banco de dados para verificar quartos disponíveis
-        $query = "SELECT * FROM quartos WHERE disponibilidade = 1 AND capacidade >= ? AND data_inicio <= ? AND data_fim >= ?";
-        $stmt = $conn->prepare($query);
-        $stmt->execute([$qnt, $inicio, $fim]);
-        return $stmt->fetchAll(); // Retorna um array com os resultados
+    public static function disponivel($conn, $data) {
+     $resultado = QuartoModel ::disponivel($conn, $data);
+        if($resultado){
+            return jsonResponse(['Quartos'=> $result]);
+        }else{
+            return jsonResponse(['message'=> 'asdasdasd'], 400);
+        }
     }
 }
 

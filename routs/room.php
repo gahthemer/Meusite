@@ -5,15 +5,18 @@ require_once __DIR__ . "/../controllers/QuartoController.php";
     if ( $_SERVER['REQUEST_METHOD'] === "GET" ){
         $id = $segments[2] ?? null;
 
-        if(isset($id)){
-            QuartoController::getById($conn,$id);
+        if (isset($id)){
+            if (is_numeric($id)){
+            QuartoController::getById($conn, $id);
+        }else{
+            $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
+            $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
+            $qnt = isset($_GET['qnt']) ? $_GET['qnt'] : null;
+            QuartoController::disponivel($conn, ["inicio"=>$inicio, "fim"=>$fim, "qnt"=>$qnt]);
         }
-        elseif(isset($id)){
-            QuartoController :: disponivel ($conn,$qnt,$fim,$inicio);
-        }
-        else{
-            QuartoController::getAll($conn);
-        }
+    }else{
+        QuartoController::getAll($conn);
+    }
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "POST" ){

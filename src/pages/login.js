@@ -29,16 +29,15 @@ export default function renderLoginPage() {
     const senha = inputSenha.value.trim();
 
     try {
-      const result = await loginRequest(email, senha);
+      const result = await loginRequest(email,senha);
       saveToken(result.token);
-      console.log("Login realizado com sucesso! " + result.token);
 
-      window.location.pathname = "/Meusite/home"; // Commented out redirect
+      //window.location.pathname = "/Meusite/home"; // Commented out redirect
       
     } catch {
-      console.log("Erro inesperado!");
+      console.log("erro inesperado");
     }
-  });
+  })
 
   // Create and append text with registration link
   const texto = document.createElement("p");

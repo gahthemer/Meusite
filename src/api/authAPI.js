@@ -1,18 +1,14 @@
 export async function loginRequest(email,senha) {
     
-    const dados = { email,password: senha};
+    const dados = {email,senha};
 
-    const response = await fetch ("api/login",{
+    const response = await fetch ("api/login/client",{
         method: "POST",
         headers: {
             "Accept":"application/json",
-            "content-Type": "application/json"
+            "content-Type":"application/json"
         },
-
-
         body : JSON.stringify(dados),
-        //body: new URLSearchParams({email,senha}).toString(),
-
         credentials: "same-origin"
     });
 

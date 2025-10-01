@@ -6,7 +6,7 @@ require_once "Password.php";
 
         public static function create($conn,$data){
 
-            $data['senha'] = Password::generateHash($data['senha']);
+            $data['password'] = Password::generateHash($data['password']);
                 
             $resultado = Clientemodel :: create($conn,$data);
             if($resultado){
@@ -36,7 +36,7 @@ require_once "Password.php";
         }
 
         public static function update($conn,$id,$data){
-            $data['senha'] = Password::generateHash($data['senha']);
+            $data['password'] = Password::generateHash($data['password']);
             $Atualizado = clientemodel :: update($conn,$id,$data);
             if($Atualizado){
               return jsonResponse(['message' => "Cliente atualizado com sucesso"]);
@@ -44,10 +44,31 @@ require_once "Password.php";
                return jsonResponse(['message' => "Cliente nao atualizado"], 404);
             }
         }
+        public static function loginClient($conn, $data) {
 
+        $data['email'] = trim($data['email']);
+        $data['password'] = trim($data['password']);
+ 
+        if (empty($data['email']) || empty($data['password'])) {
+            return jsonResponse([
+                "status" => "erro",
+                "message" => "Preencha todos os campos!"
+            ], 401);
+        }
+ 
+        $cliente = clienteModel::ClienteValidation($conn, $data['email'], $data['password']);
+        if ($cliente) {
+            $token = createToken($cliente);
+            return jsonResponse([ "token" => $token ]);
+        } else {
+            return jsonResponse([
+                "status" => "erro",
+                "message" => "Credenciais inválidas!"
+            ], 401);
+        }
 
     }
-    
+}
 
 
 
