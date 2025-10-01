@@ -1,20 +1,25 @@
 <?php
 require_once __DIR__ . "/../models/clientemodel.php";
+require_once __DIR__ ."/../helpers/token_jwt.php";
 require_once "Password.php";
+require_once "AuthController.php";
 
-    class ClienteController{
+class ClienteController{
 
-        public static function create($conn,$data){
+    public static function create($conn,$data){
+        $login = [
+            "email" => $data['email'],
+            "password" => $data['senha']
+        ];
 
-            $data['password'] = Password::generateHash($data['password']);
-                
-            $resultado = Clientemodel :: create($conn,$data);
-            if($resultado){
-                return jsonResponse(['message' => "Cliente cadartrado com sucesso"]);
-            }else{
-                return jsonResponse(['message' => "Cliente nao cadastrado"], 404);
-            }
+        $data['senha'] = Password::generateHash($data['senha']);
+        $result = clientemodel::create($conn, $data);
+            if($result){
+                AuthController::loginClient($conn, $login);
+        }else{
+            return jsonResponse(['message'=>"cliente não cadastrado, algo deu errado!"], 404);
         }
+    }
 
         public static function getAll($conn){
             $listaQuarto = clientemodel::getAll($conn);

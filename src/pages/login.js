@@ -4,13 +4,13 @@ import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 
 export default function renderLoginPage() {
-  // Clear and set up the navbar
+  
   const nav = document.getElementById("navbar");
   nav.innerHTML = "";
   const navbar = NavBar();
   nav.appendChild(navbar);
 
-  // Clear and set up the footer
+ 
   const foot = document.getElementById("footer");
   foot.innerHTML = "";
   const footer = Footer();

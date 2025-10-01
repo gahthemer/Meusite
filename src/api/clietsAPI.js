@@ -7,7 +7,7 @@ export async function createRequest(nome,cpf,telefone,email,senha) {
             "content-Type": "application/json"
         },
          body : JSON.stringify(dados),
-        //body: new URLSearchParams({email,senha}).toString(),
+        
 
         credentials: "same-origin"
     })

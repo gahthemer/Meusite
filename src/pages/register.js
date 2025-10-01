@@ -58,7 +58,7 @@ export default function renderRegisterPage() {
     inputSenha.required = true;
   }
 
-  // Create input for password confirmation
+ 
   const inputConfSenha = document.createElement("input");
   inputConfSenha.type = "password";
   inputConfSenha.placeholder = "Confirme sua senha";
@@ -95,7 +95,7 @@ export default function renderRegisterPage() {
     try {
       const result = await createRequest(nome, cpf, telefone, email, senha);
       alert("Conta criada com sucesso!");
-      // Optionally redirect or clear form
+      
       contentForm.reset();
     } catch (error) {
       console.error("Erro ao criar conta:", error);
