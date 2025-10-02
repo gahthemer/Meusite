@@ -15,8 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }else{
         jsonResponse(["status"=>"erro","message","rota nao existente"],303);
     }
+}
+   // elseif ($_SERVER['REQUEST_METHOD'] === "PUT") {
+       //validationTokenAPI();
+       //jsonResponse(['message'=> "Deu certo"],200);
 
-}else{
+    //}
+    else{
     jsonResponse(["status"=>"erro","message"=>"metodo nao permitido"],303);
 }
 

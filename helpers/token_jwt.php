@@ -25,6 +25,20 @@
         }
     }
 
+    function validationTokenAPI(){
+        $headers = getallheaders();
+        if (!isset($headers["Authorization"])){
+            jsonResponse(['message'=>"Token ausente"],401);
+           exit;
+        }
+
+        $token = str_replace("Bearer ", "",$headers["Authorization"]);
+        if(!validateToken($token)){
+         jsonResponse(['message'=>"Token invalido"],401);
+           exit;   
+    }
+}
+
 
 
 ?>

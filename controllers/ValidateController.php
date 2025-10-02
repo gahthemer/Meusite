@@ -119,6 +119,16 @@ class ValidateController {
         }
         return true;
     }
+
+
+    public static function fix_dateHour($date, $hour) {
+
+        $dateHour = new DateTime($date);
+        $dateHour->setTime(0,0);
+        
+    return $dateHour->format('y-m-d h:i:s');
+
+    }
 }
 
 

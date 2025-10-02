@@ -66,18 +66,19 @@
 
     public static function disponivel($conn, $data) {
         $sql = "SELECT *
-        FROM quartos
-        WHERE quartos.disponivel = 1
-        AND (quartos.qnt_cama_casal * 2 + quartos.qnt_cama_solteiro) >= ?
-        AND quartos.id NOT IN (
-            SELECT reservas.quarto_id
-            FROM reservas
-            WHERE NOT (reservas.fim <= ? AND reservas.inicio >= ?))";
+        FROM quartos q
+        WHERE q.disponivel = true
+        AND ((q.qnt_cama_casal * 2) + q.qnt_cama_solteiro) >= ?
+        AND q.id NOT IN (
+            SELECT r.quarto_id
+            FROM reservas r
+            WHERE (r.fim >= ? AND r.inicio <= ?));";
+
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("iss", 
             $data["qnt"],
-            $data["data_inicio"],
-            $data["data_fim"]
+            $data["inicio"],
+            $data["fim"]
         );
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

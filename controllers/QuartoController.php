@@ -49,9 +49,9 @@
     public static function disponivel($conn, $data) {
      $resultado = QuartoModel ::disponivel($conn, $data);
         if($resultado){
-            return jsonResponse(['Quartos'=> $result]);
+            return jsonResponse(['Quartos'=> $resultado]);
         }else{
-            return jsonResponse(['message'=> 'asdasdasd'], 400);
+            return jsonResponse(['message'=> 'nao disponivel'], 400);
         }
     }
 }

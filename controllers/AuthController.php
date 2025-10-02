@@ -34,17 +34,17 @@ class AuthController {
 
     public static function loginClient($conn, $data){
         $data['email'] = trim($data['email']);
-        $data['password'] = trim($data['password']);
+        $data['senha'] = trim($data['senha']);
 
         // Confirma se tem algum campo vazio
-        if (empty($data['email']) || empty($data['password'])){
+        if (empty($data['email']) || empty($data['senha'])){
             return jsonResponse([
                 "status"=>"erro",
                 "message"=>"Preencha todos os campos!"
             ], 401);
         }
 
-        $user = Clientemodel::ClienteValidation($conn, $data['email'], $data['password']);
+        $user = Clientemodel::ClienteValidation($conn, $data['email'], $data['senha']);
         if ($user){
             $token = createToken($user);
             return jsonResponse([

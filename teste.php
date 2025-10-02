@@ -33,15 +33,16 @@
         //];
     
 
-       // $data = [
+        $data = [
             
            // "pedido_id" => 4,
-           // "quarto_id" => 34,
-          // "adicional_id" => 7,
-          //  "fim" => "20/09/25",
-           // "inicio" => "01/09/25"
+            //"quarto_id" => 34,
+           //"adicional_id" => 7,
+           "qnt"=> "4",
+            "inicio" => "2025-10-01 14:00:00",
+            "fim" => "2025-10-07 12:00:00"
             
-        //];
+        ];
 
             //$data = [
             
@@ -79,7 +80,7 @@
     //ClienteController :: update($conn,35,$data);
    
  
- 
+    QuartoController :: disponivel($conn,$data);
     //QuartoController :: post($conn,$data);
     //QuartoController :: update ($conn,31,$data);
     //QuartoController :: delete ($conn,21);
