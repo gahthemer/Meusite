@@ -8,15 +8,19 @@ require_once __DIR__ . "/../controllers/QuartoController.php";
         if (isset($id)){
             if (is_numeric($id)){
             QuartoController::getById($conn, $id);
+            }elseif($id === "disponiveis"){
+                $data = [
+                    "inicio"=> isset($_GET['inicio']) ? $_GET['inicio'] : null,
+                    "fim"=> isset($_GET['fim']) ? $_GET['fim'] : null,
+                    "qnt"=> isset($_GET['qnt']) ? $_GET['qnt'] : null
+                ];
+                QuartoController::disponivel($conn, $data);
+            }else{
+                return jsonResponse(['message'=>"Rota não identificada"],403);
+            }
         }else{
-            $inicio = isset($_GET['inicio']) ? $_GET['inicio'] : null;
-            $fim = isset($_GET['fim']) ? $_GET['fim'] : null;
-            $qnt = isset($_GET['qnt']) ? $_GET['qnt'] : null;
-            QuartoController::disponivel($conn, ["inicio"=>$inicio, "fim"=>$fim, "qnt"=>$qnt]);
+            QuartoController::getAll($conn);
         }
-    }else{
-        QuartoController::getAll($conn);
-    }
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "POST" ){

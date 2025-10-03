@@ -3,6 +3,8 @@ import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import RoomCard from "../components/RoomCard.js";
 import DateSelector from "../components/DateSelector.js";
+import { listAllRoomsRequest } from "../api/roomsAPI.js";
+
 
 export default function renderHomePage() {
     // Get DOM elements
@@ -25,8 +27,25 @@ export default function renderHomePage() {
     // Create components
     const navbar = NavBar();
     const hero = Hero();
-    const date = DateSelector ();
+    const date = DateSelector();
     const footer = Footer();
+
+    const btnSearchRoom = date.querySelector('button');
+
+    btnSearchRoom.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const inicio = "2025-10-01";
+        const fim = "2025-10-05";
+        const qnt = 2;
+
+        try{
+            const quartos = listAllRoomsRequest({inicio,fim,qnt});
+        }
+        catch (error){
+            console.log(error);
+        }
+    });
     
 
     // Append components to the correct DOM elements

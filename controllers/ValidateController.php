@@ -111,6 +111,22 @@ class ValidateController {
         return $erros;
     }
         
+      public static function validate_data($data, $labels){
+        $pendents = [];
+        foreach($labels as $lbl){
+            if (!isset($data[$lbl]) && empty($data[$lbl]) ) {
+ 
+                $pendents[] = $lbl;
+            }
+        }
+ 
+        if(!empty($pendents)){
+            $pendents = implode(",", $pendents);
+            jsonResponse(['message' => "Erro, Falta o campo: " .$pendents], 400);
+            exit;
+        }
+    }
+
     private static function validarCPF($cpf) {
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
         
@@ -124,9 +140,9 @@ class ValidateController {
     public static function fix_dateHour($date, $hour) {
 
         $dateHour = new DateTime($date);
-        $dateHour->setTime(0,0);
+        $dateHour->setTime($hour, 0,0);
         
-    return $dateHour->format('y-m-d h:i:s');
+    return $dateHour->format("Y-m-d H:i:s");
 
     }
 }
