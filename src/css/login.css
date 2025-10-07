@@ -27,6 +27,7 @@ input:focus {
 }
 
     .card {
+    
       display: block; /* Garante que seja um elemento de bloco */
       margin: 0 auto; /* Centraliza horizontalmente */
       width: 250px;   /* Importante: o elemento precisa ter uma largura definida */

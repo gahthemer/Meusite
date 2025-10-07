@@ -1,8 +1,24 @@
-export default function RoomCard(index) {
+export default function RoomCard(itemcard, index = 0) {
+
+    const{
+        nome,
+        numero,
+        qnt_cama_casal,
+        qnt_cama_solteiro,
+        preco
+    } = itemcard || {};
+
+    const title = nome;
+    const camas = [
+        (qnt_cama_casal != null ? '${qnt_cama_casal} cama(s)' : null),
+        (qnt_cama_solteiro != null ? '${qnt_cama_solteiro} cama(s)' : null)
+    ].filter(Boolean).join(' # ');
+
+
     const card = document.createElement('div');
     card.className = "cardContainer";
     card.innerHTML =
-    //Bootstrap
+   
     `
     <div class="card" style="width: 18rem;">
         <div id="carouselExampleIndicators-${index}" class="carousel slide">
@@ -14,15 +30,15 @@ export default function RoomCard(index) {
         
             <div class="carousel-inner shadow">
                 <div class="carousel-item active">
-                    <img src="public/assets/img/quarto.jpg" class="d-block w-100" alt="...">
+                    <img src="public/assets/img/imagem (12).png" class="d-block w-100" alt="...">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="public/assets/img/Quarto1.jpg" class="d-block w-100" alt="...">
+                    <img src="public/assets/img/imagem (7).png" class="d-block w-100" alt="...">
                 </div>
 
                 <div class="carousel-item">
-                    <img src="public/assets/img/quarto2.jpg" class="d-block w-100" alt="...">
+                    <img src="public/assets/img/imagem (3).png" class="d-block w-100" alt="...">
                 </div>
             </div>
 
@@ -40,9 +56,11 @@ export default function RoomCard(index) {
         </div>
         
         <div class="card-body">
-            <h5 class="card-title">Nome do quarto</h5>
-            <p class="card-text">Descrição do quarto: Lorem ipsum dolor sit amet consectetur
-             adipisicing elit. Officia, harum libero, ratione, nostrum iusto dicta.</p>
+            <h5 class="card-title">${title}</h5>
+            <ul class=list-unstyled mb-2">
+            ${camas? '<li>${camas}':""}
+            ${preco != null ? '<li>Preco: R$ ${Number(preco).toFixed(2)}</li>' : ""}
+            </ul>
             <a href="#" class="btn btn-primary">Reservar</a>
         </div>
     </div>

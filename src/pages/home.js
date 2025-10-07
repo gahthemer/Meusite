@@ -30,22 +30,53 @@ export default function renderHomePage() {
     const date = DateSelector();
     const footer = Footer();
 
+    const [checkin,checkout] = date.querySelectorAll('input[type="date"]');
+    const guestAmout = date.querySelector('select');
     const btnSearchRoom = date.querySelector('button');
+
+    const cardsGroup = document.createElement('div');
+    cardsGroup.className = "cards";
+    cardsGroup.id = "cards-result";
 
     btnSearchRoom.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        const inicio = "2025-10-01";
-        const fim = "2025-10-05";
-        const qnt = 2;
+        const inicio = (checkin?.value ||"").trim();
+        const fim = (checkout?.value ||"").trim();
+        const qnt = parseInt(guestAmout?.value || "0",10);
+
+        if(!inicio || !fim || Number.isNaN(qnt) || qnt <= 0 ){
+            console.log("Preencha todos os campos!");
+            return;
+        }
+
+        const dtinicio = new Date (inicio);
+        const dtfim = new Date (fim);
+
+        if(isNaN(dtinicio) || isNaN(dtfim) || dtinicio >= dtfim){
+            console.log("A data de check-in nao pode ser posterior ao check-out!");
+            return;
+        }
+
+        console.log("Buscando quartos disponiveis...");
 
         try{
-            const quartos = listAllRoomsRequest({inicio,fim,qnt});
+            const quartos = await listAllRoomsRequest({inicio,fim,qnt});
+            if(!quartos.length){
+                console.log("Nenhum quarto disponivel para esse periodo!");
+                return;
+            }
+            cardsGroup.innerHTML = '';
+            quartos.forEach((itemcard,i)=>{
+                cardsGroup.appendChild(RoomCard(itemcard,i));
+            });
         }
         catch (error){
             console.log(error);
         }
     });
+
+    
     
 
     // Append components to the correct DOM elements
@@ -53,9 +84,6 @@ export default function renderHomePage() {
     divRoot.appendChild(hero);
     divRoot.appendChild(date);
     foot.appendChild(footer);
-
-    const cardsGroup = document.createElement('div');
-    cardsGroup.className = "cards";
 
     for (var i=0; i < 3; i++) {
         const cards = RoomCard(i);

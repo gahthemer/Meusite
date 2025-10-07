@@ -16,13 +16,13 @@ export default function renderLoginPage() {
   const footer = Footer();
   foot.appendChild(footer);
 
-  // Create and configure the login form
+  
   const formulario = LoginForm();
   const contentForm = formulario.querySelector("form");
   const inputEmail = contentForm.querySelector('input[type="email"]');
   const inputSenha = contentForm.querySelector('input[type="password"]');
 
-  // Add submit event listener to the form
+
   contentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = inputEmail.value.trim();
