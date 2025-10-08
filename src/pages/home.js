@@ -79,16 +79,11 @@ export default function renderHomePage() {
     
     
 
-    // Append components to the correct DOM elements
     nav.appendChild(navbar);
     divRoot.appendChild(hero);
     divRoot.appendChild(date);
     foot.appendChild(footer);
 
-    for (var i=0; i < 3; i++) {
-        const cards = RoomCard(i);
-        cardsGroup.appendChild(cards);
-    }
 
     divRoot.appendChild(cardsGroup);
 

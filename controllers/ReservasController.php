@@ -21,5 +21,5 @@
             $result = ReservaModel::getById($conn, $id);
             return jsonResponse($result);
         }
-}
+    }
 ?>
