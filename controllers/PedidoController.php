@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . "/../models/Pedido.php";
+    require_once "controllers/ValidateController.php";
 
     class PedidosController{
 
@@ -40,6 +41,21 @@
             }
         }
 
+         public static function create2($conn,$data){
+            $usuario_id =isset( $data ["usuario_id"])?$data["usuario-id"]:null;
+            ValidateController::validate_data($data,["cliente_id", "pagamento", "quartos"]);
+
+            foreach($data['quartos'] as $quartos){
+                ValidateController ::validate_data($quartos,["id","inicio","fim"]);
+            }
+
+            if(count($data["quartos"])==0){
+                return jsonResponse(["message"=> "Reservas não existem!!!"], 400);
+            PedidoModel::createpedido($conn,$data);
+        }
+
+       
 
     }
+}
 ?>

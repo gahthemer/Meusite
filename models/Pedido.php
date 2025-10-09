@@ -1,6 +1,9 @@
 <?php 
-
+    require_once "models/QuartoModel.php";
+    require_once "models/ReservasModel.php";
     class PedidoModel{
+
+        
 
         public static function create($conn,$data){
             
@@ -14,7 +17,11 @@
             $data ["pagamento"]
         
         ); 
-            return $stmt->execute();
+            $resultado = $stmt->execute();
+                if($resultado){
+                return $conn->insert_id;
+            }
+            return false;
         }
 
         public static function getAll($conn){
@@ -58,11 +65,71 @@
         
         ); 
             return $stmt->execute();
+    }  
+    
+    public static function createpedido ($conn,$data){
+        $cliente_id = $data ["cliente_id"];
+        $pagamento = $data ["pagamento"];
+        $usuario_id = $data ["usuario_id"];
+        $reservas = [];
+        $reservou = false;
+
+        $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+
+        try {
+            $pedido_id = self:: create($conn,[
+                "usuario_id" => $usuario_id,
+                "cliente_id" => $cliente_id,
+                "pagamento" => $pagamento
+            ]);
+
+            if(!$pedido_id){
+                throw new RuntimeException("Erro ao criar o pedido.");
+            }
+
+             foreach($data['quartos'] as $quartos){
+                $id = $quartos["id"];
+                $inicio = $quartos["inicio"];
+                $fim = $quartos["fim"];
+
+                if(!QuartoModel::lockById($conn,$id)){
+                    $reservas[] = "Quartos{$id} indisponivel!";
+                    continue;
+                }
+
+                //ReserveModel :: isConflict();
+                $reservasResult = ReservaModel :: create($conn,[
+                    "pedido_id" => $pedido_id,
+                    "quarto_id" =>$id,
+                    "adicional_id" => null,
+                    "inicio" => $inicio,
+                    "fim" => $fim,
+                ]);
+
+                $reservou = true;
+                $reservou[] = [
+                    "reserva_id" => $conn->insert_id,
+                    "quarto_id" => $id
+                ];
+
+            }
+
+            if($reservou == true){
+                $conn->commit();
+                return[
+                    
+                ]
+            }
+           
+    
+        } catch (\Throwable $th) {
+          try {
+            $conn->rollback();
+          } catch (\Throwable $th2) {
+          }  
+          throw $th;
+        }
     }
-    
-
-    
-
 
 }
 ?>

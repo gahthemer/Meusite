@@ -20,11 +20,11 @@ $subRoute = $segments[1] ?? null;
 
 if ($route != "api"){
     require __DIR__ . "/public/index.html";
-    //require "teste.php";
+    require "teste.php";
     exit;
 
 } elseif ($route === "api") {
-    if (in_array($subRoute, ["login","room","cliente","adicionais","reservas"])){
+    if (in_array($subRoute, ["login","room","cliente","adicionais","reservas","pedidos"])){
         require "routs/${subRoute}.php";
     } 
     else {

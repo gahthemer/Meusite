@@ -80,7 +80,7 @@
     //ClienteController :: update($conn,35,$data);
    
  
-    QuartoController :: disponivel($conn,$data);
+    //QuartoController :: disponivel($conn,$data);
     //QuartoController :: post($conn,$data);
     //QuartoController :: update ($conn,31,$data);
     //QuartoController :: delete ($conn,21);
