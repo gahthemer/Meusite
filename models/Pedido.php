@@ -107,20 +107,24 @@
                 ]);
 
                 $reservou = true;
-                $reservou[] = [
+                $reservas[] = [
                     "reserva_id" => $conn->insert_id,
                     "quarto_id" => $id
                 ];
 
             }
 
-            if($reservou == true){
+           if ( $reservou == true ) {
                 $conn->commit();
-                return[
-                    
-                ]
+                return [
+                    "pedido_id" => $pedido_id,
+                    "reservas" => $reservas,
+                    "message" => "Reservas criadas com sucesso!"
+                ];
+            } else {
+                throw new RuntimeException("Pedido não realizado, nenhum quarto reservado.");
             }
-           
+
     
         } catch (\Throwable $th) {
           try {

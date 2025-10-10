@@ -1,6 +1,5 @@
 export default function NavBar() {
   const navbar = document.createElement('div');
-  /*Incorporar os arquivos no inner html*/
 
   navbar.innerHTML = `
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -40,16 +39,10 @@ export default function NavBar() {
         <li class="nav-item">
         <a class="nav-link" href="login" >Login</a>
         </li>
-
-         <li class="nav-item">
-        <a class="nav-link" href="carrinho" ><img src ="public/assets/img/carrinhoimg.png" style = "width: 25px; heigth:25px"></a>
-        </li>
-
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="ms-auto">
+        <a class="nav-link" href="carrinho"><img src="public/assets/img/carrinhoimg.png" style="width: 25px; height: 25px"></a>
+      </div>
     </div>
   </div >
 </nav >`;

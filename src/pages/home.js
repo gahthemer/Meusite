@@ -4,6 +4,7 @@ import Footer from "../components/Footer.js";
 import RoomCard from "../components/RoomCard.js";
 import DateSelector from "../components/DateSelector.js";
 import { listAllRoomsRequest } from "../api/roomsAPI.js";
+import Revoltcard from "../components/revoltacarrossel.js";
 
 
 export default function renderHomePage() {
@@ -11,6 +12,7 @@ export default function renderHomePage() {
     const nav = document.getElementById('navbar');
     const foot = document.getElementById('footer');
     const divRoot = document.getElementById('root');
+    
 
 
     // Verificar se os elementos existem
@@ -28,6 +30,7 @@ export default function renderHomePage() {
     const navbar = NavBar();
     const hero = Hero();
     const date = DateSelector();
+    const revoltcard = Revoltcard();
     const footer = Footer();
 
     const [checkin,checkout] = date.querySelectorAll('input[type="date"]');
@@ -76,14 +79,24 @@ export default function renderHomePage() {
         }
     });
 
-    
-    
+    const revoltacarditem = [
+        {path: "restauranthotel.png",title:"restaurante",text:"Nosso restaurante e um espaço"},
+        {path: "restauranthotel.png",title:"restaurante",text:"Nosso restaurante e um espaço"},
+        {path: "restauranthotel.png",title:"restaurante",text:"Nosso restaurante e um espaço"}
+    ];
+
+   
+      
 
     nav.appendChild(navbar);
     divRoot.appendChild(hero);
     divRoot.appendChild(date);
     foot.appendChild(footer);
 
+    for(let i = 0; i<revoltacarditem.length; i++){
+        const revoltacard = Revoltcard (revoltacarditem[i],i);
+        cardsGroup.appendChild(revoltacard);
+    }
 
     divRoot.appendChild(cardsGroup);
 
