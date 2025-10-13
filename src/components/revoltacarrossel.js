@@ -17,7 +17,7 @@ export default function Revoltcard(revoltacarditem,index){
             </button>
            
             <ul class="dropdown-menu" style="border-radius: 0.375rem 0.375rem 0 0;">
-                <p class = "card-text" style="text-align: center";>${text} Restaurante despojado e simples para sua familia</p>
+                <p class = "card-text" style="text-align:center";>${text} Restaurante despojado e simples para sua familia</p>
             </ul>
         </div>
        

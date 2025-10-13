@@ -59,6 +59,28 @@ class ReservaModel{
         );
         return $stmt->execute();
     }
+
+    public static function getQuartoId($conn, $id, $data) {
+    $sql = "SELECT *
+            FROM quartos q
+            WHERE q.id = ?
+            AND q.disponivel = true
+            AND q.id NOT IN (
+                SELECT r.quarto_id
+                FROM reservas r
+                WHERE r.fim >= ? AND r.inicio <= ?
+            )";
+    
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iss", 
+            $id, 
+            $data['inicio'],
+            $data['fim']
+        );
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    
 }
        
 ?>
