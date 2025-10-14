@@ -1,0 +1,1 @@
+import cadastroquarto from "../components/cadastroquarto.js";

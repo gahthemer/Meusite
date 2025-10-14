@@ -6,117 +6,110 @@ import DateSelector from "../components/DateSelector.js";
 import { listAllRoomsRequest } from "../api/roomsAPI.js";
 import Revoltcard from "../components/revoltacarrossel.js";
 
-
 export default function renderHomePage() {
-    
     const nav = document.getElementById('navbar');
     const foot = document.getElementById('footer');
     const divRoot = document.getElementById('root');
-    const cardAboult = document.createElement('div');
-    cardAboult.className = "cards";
-    
-
-
     
     if (!nav || !foot || !divRoot) {
         console.error('Um ou mais elementos DOM não foram encontrados.');
         return;
     }
 
-   
     nav.innerHTML = '';
     foot.innerHTML = '';
     divRoot.innerHTML = '';
-    
 
-   
     const navbar = NavBar();
     const hero = Hero();
     const date = DateSelector();
     const footer = Footer();
-    const dateToday = new Date().toISOString.split("T")[0];
-
     
+    const dateToday = new Date().toISOString().split("T")[0];
 
-    const [checkin,checkout] = date.querySelectorAll('input[type="date"]');
-    const guestAmout = date.querySelector('select');
+    const [ checkin, checkout ] = date.querySelectorAll('input[type="date"]');
+    const guestAmount = date.querySelector('select');
     const btnSearchRoom = date.querySelector('button');
+
     checkin.min = dateToday;
     checkout.min = dateToday;
 
-    function getMinDatecheckout(dateToday){
-        const minDate = new Date(dateCheckin);
-        minDaily.setDate(minDaily.getDate()+1);
+    function getMinDateCheckout(checkin) {
+        const minDaily = new Date(checkin);
+        minDaily.setDate(minDaily.getDate() + 1);
         return minDaily.toISOString().split('T')[0];
     }
 
-    dateCheckin.addEventListener("change",async (e) => {
-        if(this.value){
-            const minDatecheckout = getMinDatecheckout(this.value);
-            dateCheckout.min = minDatecheckout;
+    checkin.addEventListener("change", (e) => {
+        if (checkin.value) {
+            const minDateCheckout = getMinDateCheckout(checkin.value);
+            checkout.min = minDateCheckout;
+        
+
+        if(checkout.value && checkout.value <= checkin.value){
+            checkout.value = "";
+            alert("A data de check-in não pode ser posterior ao check-out!")
         }
+    }
     });
+
     const cardsGroup = document.createElement('div');
     cardsGroup.className = "cards";
     cardsGroup.id = "cards-result";
 
+    const cardAbout = document.createElement('div');
+    cardAbout.className = "cards";
+
     btnSearchRoom.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        const inicio = (checkin?.value ||"").trim();
-        const fim = (checkout?.value ||"").trim();
-        const qnt = parseInt(guestAmout?.value || "0",10);
+        const inicio = (checkin?.value || "").trim();
+        const fim = (checkout?.value || "").trim();
+        const qnt = parseInt(guestAmount?.value || "0", 10);
 
-        if(!inicio || !fim || Number.isNaN(qnt) || qnt <= 0 ){
+        if (!inicio || !fim || Number.isNaN(qnt) || qnt <= 0) {
             console.log("Preencha todos os campos!");
             return;
         }
 
-        const dtinicio = new Date (inicio);
-        const dtfim = new Date (fim);
 
-        if(isNaN(dtinicio) || isNaN(dtfim) || dtinicio >= dtfim){
-            console.log("A data de check-in nao pode ser posterior ao check-out!");
-            return;
-        }
+        console.log("Buscando quartos disponíveis...");
 
-        console.log("Buscando quartos disponiveis...");
-
-        try{
-            const quartos = await listAllRoomsRequest({inicio,fim,qnt});
-            if(!quartos.length){
-                console.log("Nenhum quarto disponivel para esse periodo!");
+        try {
+            const quartos = await listAllRoomsRequest({ inicio, fim, qnt });
+            
+            if (!quartos.length) {
+                console.log("Nenhum quarto disponível para esse período!");
+                cardsGroup.innerHTML = '';
                 return;
             }
+
             cardsGroup.innerHTML = '';
-            quartos.forEach((itemcard,i)=>{
-                cardAboult.appendChild(RoomCard(itemcard,i));
+            quartos.forEach((itemCard, i) => {
+                cardsGroup.appendChild(RoomCard(itemCard, i));
             });
-        }
-        catch (error){
-            console.log(error);
+        } catch (error) {
+            console.error("Erro ao buscar quartos:", error);
+            cardsGroup.innerHTML = '';
         }
     });
 
-    const revoltacarditem = [
-        {path: "restauranthotel.png",title:"restaurante",text:"Nosso restaurante e um espaço"},
-        {path: "restauranthotel.png",title:"restaurante",text:"Nosso restaurante e um espaço"},
-        {path: "restauranthotel.png",title:"restaurante",text:"Nosso restaurante e um espaço"}
+    const revoltacardItems = [
+        { path: "restauranthotel.png", title: "restaurante", text: "Nosso restaurante é um espaço" },
+        { path: "restauranthotel.png", title: "restaurante", text: "Nosso restaurante é um espaço" },
+        { path: "restauranthotel.png", title: "restaurante", text: "Nosso restaurante é um espaço" }
     ];
 
     nav.appendChild(navbar);
     divRoot.appendChild(hero);
     divRoot.appendChild(date);
-    foot.appendChild(footer);
-
-    for(let i = 0; i<revoltacarditem.length; i++){
-        const revoltacard = Revoltcard (revoltacarditem[i],i);
-        cardAboult.appendChild(revoltacard);
-    }
+    
+    revoltacardItems.forEach((item, i) => {
+        const revoltacard = Revoltcard(item, i);
+        cardAbout.appendChild(revoltacard);
+    });
     
     divRoot.appendChild(cardsGroup);
-    divRoot.appendChild(cardAboult);
-    
-
+    divRoot.appendChild(cardAbout);
+    foot.appendChild(footer);
 }
-
