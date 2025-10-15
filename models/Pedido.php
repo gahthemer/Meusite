@@ -7,16 +7,14 @@
 
         public static function create($conn,$data){
             
-            $sql = "INSERT INTO pedidos (usuario_id,cliente_id,data,pagamento) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO pedidos (usuario_id, cliente_id, pagamento) VALUES (?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iiss", 
-            $data ["usuario_id"],
-            $data ["cliente_id"],
-            $data ["data"],
-            $data ["pagamento"]
-        
-        ); 
+            $stmt->bind_param("iis", 
+                $data ["usuario_id"],
+                $data ["cliente_id"],
+                $data ["pagamento"]
+            ); 
             $resultado = $stmt->execute();
                 if($resultado){
                 return $conn->insert_id;
@@ -68,9 +66,9 @@
     }  
     
     public static function createpedido ($conn,$data){
-        $cliente_id = $data ["cliente_id"];
-        $pagamento = $data ["pagamento"];
-        $usuario_id = $data ["usuario_id"];
+        $cliente_id = $data["cliente_id"];
+        $pagamento = $data["pagamento"];
+        $usuario_id = $data["usuario_id"];
         $reservas = [];
         $reservou = false;
 
@@ -81,7 +79,7 @@
                 "usuario_id" => $usuario_id,
                 "cliente_id" => $cliente_id,
                 "pagamento" => $pagamento
-            ]);
+                ]);
 
             if(!$pedido_id){
                 throw new RuntimeException("Erro ao criar o pedido.");
@@ -97,11 +95,16 @@
                     continue;
                 }
 
+                if(!ReservaModel :: isQuartoDisponivel($conn,$id,$inicio,$fim)){
+                    $reservas[] = "Quartos {$id} ja esta reservado!";
+                    continue;
+                }
+
                 //ReserveModel :: isConflict();
                 $reservasResult = ReservaModel :: create($conn,[
                     "pedido_id" => $pedido_id,
                     "quarto_id" =>$id,
-                    "adicional_id" => null,
+                    "adicional_id" => 11,
                     "inicio" => $inicio,
                     "fim" => $fim,
                 ]);

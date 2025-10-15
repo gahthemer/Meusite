@@ -42,16 +42,24 @@
         }
 
          public static function create2($conn,$data){
-            $usuario_id =isset( $data ["usuario_id"])?$data["usuario-id"]:null;
+            $data["usuario_id"] = isset($data["usuario_id"]) ? $data["usuario-id"] : 5;
             ValidateController::validate_data($data,["cliente_id", "pagamento", "quartos"]);
 
             foreach($data['quartos'] as $quartos){
-                ValidateController ::validate_data($quartos,["id","inicio","fim"]);
+                ValidateController :: validate_data($quartos,["id","inicio","fim"]);
+              $quartos["inicio"] =  ValidateController :: fix_dateHour($quartos["inicio"],14);
+              $quartos["fim"] =  ValidateController :: fix_dateHour($quartos["fim"],12);
             }
 
             if(count($data["quartos"])==0){
                 return jsonResponse(["message"=> "Reservas não existem!!!"], 400);
-            PedidoModel::createpedido($conn,$data);
+        }
+
+        try{
+           $resultado = PedidoModel:: createpedido($conn,$data);
+            return jsonResponse(['message' => $resultado]);
+        }catch(Throwable $erro){
+            return jsonResponse(['message' => $erro -> getMessage()],500);
         }
 
        

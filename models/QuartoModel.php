@@ -84,7 +84,7 @@
     }
 
     public static function LockById($conn,$id){
-        $sql = "SELCT id  FROM quartos WHERE id=? FOR UPDATE";
+        $sql = "SELECT id FROM quartos WHERE id=? FOR UPDATE";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i",$id);
         $stmt->execute();

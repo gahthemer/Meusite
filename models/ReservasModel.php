@@ -60,25 +60,28 @@ class ReservaModel{
         return $stmt->execute();
     }
 
-    public static function getQuartoId($conn, $id, $data) {
-    $sql = "SELECT *
-            FROM quartos q
-            WHERE q.id = ?
-            AND q.disponivel = true
-            AND q.id NOT IN (
-                SELECT r.quarto_id
-                FROM reservas r
-                WHERE r.fim >= ? AND r.inicio <= ?
-            )";
-    
+    public static function isQuartoDisponivel($conn, $quarto_id, $inicio, $fim) {
+        $sql = "SELECT COUNT(*) as conflitos
+                FROM reservas
+                WHERE quarto_id = ?
+                AND (
+                    (inicio <= ? AND fim > ?) OR
+                    (inicio < ? AND fim >= ?) OR
+                    (inicio >= ? AND fim <= ?)
+                )";
+       
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iss", 
-            $id, 
-            $data['inicio'],
-            $data['fim']
+        $stmt->bind_param("issssss",
+            $quarto_id,
+            $fim, $inicio,
+            $inicio, $fim,
+            $inicio, $fim
         );
+       
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['conflitos'] == 0;
     }
     
 }
