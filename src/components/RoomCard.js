@@ -1,3 +1,18 @@
+
+function calculoDiarias(checkin,checkout){
+    const checkin = "2026-01-01";
+    const checkout = "2026-01-08";
+
+    const [yi,mi,di] = String(checkin).split("-").map(Number);
+    const [yout,mout,dout] = String(checkout).split("-").map(Number);
+
+    const ti = Date.UTC(yi,mi -1,di);
+    const tout = Date.UTC(yout,mout -1,dout);
+
+    return Math.floor(ti - tout/(1000 * 60 * 60 * 24));
+}
+
+
 export default function RoomCard(itemCard, index = 0) {
     const {
         nome,

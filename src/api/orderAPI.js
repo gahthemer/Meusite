@@ -2,6 +2,7 @@ export async function endOrder(itens) {
     const url = "api/pedidos/reservas";
 
     const body = {
+        cliente_id: 41,
         pagamento: "pix",
         quartos: itens.map(it => ({
 
@@ -21,9 +22,21 @@ export async function endOrder(itens) {
         body: JSON.stringify(body)
      });
 
-     if(!res.ok){
-        const message = 'Erro ao enviar pedido: ${res.status}';
-        throw new Error(message);
+     let data = null;
+
+     try{
+        data = await res.json();
      }
-     return res.json();
+     catch{
+        data = null;
+     }
+
+     if(!data){
+        const message = `Erro ao enviar pedido: ${res.status}`;
+        return {ok:false,raw:data,message};
+     }
+     return{
+        ok:true,
+        raw:data
+     }
 }

@@ -1,61 +1,49 @@
-export default function cadastroquarto(){
-    const cadastroquarto = document.createElement('div');
+export default function cadastroquarto() {
+    const container = document.createElement('div');
+    container.className = "container mt-4";
+    container.id = "cadastroquarto";
 
-    cadastroquarto.innerHTML =  `
+    container.innerHTML = `
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form id="formQuarto">
+                    <h1 class="text-center mb-4">Cadastre-se</h1>
+                    
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome do Quarto</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do Quarto" required>
+                    </div>
 
-    <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputEmail4">Email</label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputPassword4">Password</label>
-      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
-  <form>
-  <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
-</form>`
+                    <div class="mb-3">
+                        <label for="numero" class="form-label">Número do Quarto</label>
+                        <input type="text" class="form-control" id="numero" placeholder="Ex: 101" required>
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="camasCasal" class="form-label">Camas de Casal</label>
+                        <input type="number" class="form-control" id="camasCasal" placeholder="Quantas camas de casal?" min="0" required>
+                    </div>
 
-return cadastroquarto;
+                    <div class="mb-3">
+                        <label for="camasSolteiro" class="form-label">Camas de Solteiro</label>
+                        <input type="number" class="form-control" id="camasSolteiro" placeholder="Quantas camas de solteiro?" min="0" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="preco" class="form-label">Preço por Diária (R$)</label>
+                        <input type="number" class="form-control" id="preco" placeholder="Ex: 150" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="disponivel">
+                        <label class="form-check-label" for="disponivel">Quarto Disponível</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Cadastrar Quarto</button>
+                </form>
+            </div>
+        </div>
+    `;
+
+    return container;
 }
