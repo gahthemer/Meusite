@@ -9,7 +9,7 @@ function calculoDiarias(checkin,checkout){
     const ti = Date.UTC(yi,mi -1,di);
     const tout = Date.UTC(yout,mout -1,dout);
 
-    return Math.floor(ti - tout/(1000 * 60 * 60 * 24));
+    return Math.floor(tout - ti /(1000 * 60 * 60 * 24));
 }
 
 
