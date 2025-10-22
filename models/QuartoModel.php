@@ -16,7 +16,9 @@
             $data ["disponivel"]
         
         ); 
-            return $stmt->execute();
+           if($stmt->execute()){
+            return $conn->insert_id;
+           }
         }
 
         public static function getAll($conn){

@@ -1,9 +1,13 @@
 <?php
     require_once __DIR__ . "/../models/QuartoModel.php";
+    require_once "uploadController.php";
+    require_once __DIR__ ."/../models/FotoModel.php";
+    require_once "ValidateController.php";
 
     class QuartoController{
 
         public static function create($conn,$data){
+
 
             if(!isset($data['disponivel'])){
                 return jsonResponse(['message'=>"Erro no campo"]);
@@ -11,7 +15,15 @@
 
             $resultado = QuartoModel :: create($conn,$data);
             if($resultado){
-              return jsonResponse(['message' => "Quarto reservado com sucesso"]);
+              if($data['fotos']){
+                $picture = UploadController::upload($data['fotos']);
+                foreach($picture['saves'] as $name){
+                    $idfoto = FotoModel::create(($name['name']));
+                    if($idfoto){
+                        FotoModel::createRelationRoom($conn,$resultado,$idfoto);
+                    }
+                }
+              }
             }else{
                return jsonResponse(['message' => "Quarto nao reservado"], 404);
             }
