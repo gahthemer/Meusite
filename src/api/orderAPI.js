@@ -12,31 +12,27 @@ export async function endOrder(itens) {
         }
     ))
     }
-     const res = await fetch(url,{
-        method :"POST",
+     const res = await fetch(url, {
+        method: "POST",
         headers: {
             "Accept": "application/json",
-            "Content-Type":"application/json"
+            "Content-Type": "application/json"
         },
-        credentials:"same-origin",
+        credentials: "same-origin",
         body: JSON.stringify(body)
-     });
+    });
 
      let data = null;
-
-     try{
+    try {
+        //Retorno em json() da requisição armazenado em data
         data = await res.json();
-     }
-     catch{
-        data = null;
-     }
-
-     if(!data){
+    }
+    catch { data = null; }
+    if (!data) {
         const message = `Erro ao enviar pedido: ${res.status}`;
-        return {ok:false,raw:data,message};
-     }
-     return{
-        ok:true,
-        raw:data
-     }
+        return {ok: false, raw: data, message}; }
+    return {
+        ok: true,
+        raw: data
+    }
 }

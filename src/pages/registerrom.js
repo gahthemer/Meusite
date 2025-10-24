@@ -1,45 +1,35 @@
 import cadastroquarto from "../components/cadastroquarto.js";
 import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
+import{addRoom} from '../api/roomsAPI.js';
 
 export default function renderRegisterQuartos() {
     
     const nav = document.getElementById("navbar");
-        nav.innerHTML = "";
-        nav.appendChild(NavBar());
+    nav.innerHTML = "";
+    nav.appendChild(NavBar()); 
 
+    
+    const divRoot = document.getElementById("root");
+    divRoot.innerHTML = "";
+    
+    const formulario = cadastroquarto(); 
+    divRoot.appendChild(formulario);     
+
+    
     const foot = document.getElementById("footer");
-        foot.innerHTML = "";
-        foot.appendChild(Footer());
+    foot.innerHTML = "";
+    foot.appendChild(Footer());
 
-    const mainContent = document.getElementById("main-content");
-        mainContent.innerHTML = ""; // LIMPA TUDO
-        const formulario = cadastroquarto();
-        mainContent.appendChild(formulario);
-    const form = document.getElementById("formQuarto");
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+    formulario.addEventListener("submit",async (e) =>{
+        e.preventDefault();
 
-            const formData = new FormData(form);
-            const dados = {
-                nome: formData.get('nome'),
-                numero: formData.get('numero'),
-                camasCasal: parseInt(formData.get('camasCasal')),
-                camasSolteiro: parseInt(formData.get('camasSolteiro')),
-                preco: parseFloat(formData.get('preco')),
-                disponivel: formData.get('disponivel') === 'on'
-            };
-
-            try {
-                // SUBSTITUA PELA SUA FUNÇÃO REAL
-                console.log("Dados enviados:", dados);
-                // await createRequest(dados);
-                
-                alert("Quarto criado com sucesso!");
-                form.reset();
-            } catch (error) {
-                console.error("Erro ao criar quarto:", error);
-                alert("Erro ao criar quarto. Tente novamente.");
-            }
-        });
-    }
+        try{
+            const response = await addRoom(this);
+            console.log("Resposta do Servidor:"+response);
+        }
+        catch{
+            console.log("Erro:" + error.message);
+        }
+    })
+}

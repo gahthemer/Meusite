@@ -1,45 +1,44 @@
 const key = "hotel_cart";
-
-export function setCart(cart){
-    localStorage.setItem(key, JSON.stringify(cart));
+/* Abertura de um pedido no localStorage*/
+export function setCart(hotel_cart) {
+    localStorage.setItem(key, JSON.stringify(hotel_cart));
 }
-export function getCart(){
-    try{
+export function getCart() {
+    try {
         const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : { status: "draft", itens: []};
-    }
-    catch {
-        return {status: "draft", itens: []};
+        return raw ? JSON.parse(raw) : { status: "draft", items: []};
+    } catch {
+      return {status: "draft", items: []};
     }
 }
 
-export function addItemToCart(item){
-    const cart = getCart();
-    cart.itens.push(item);
-    setCart(cart);
-    return cart;
+export function addItemToHotel_Cart(item) {
+    const hotel_cart = getCart();
+    hotel_cart.items.push(item);
+    setCart(hotel_cart);
+    return hotel_cart;
 }
 
-export function removeItemHotel_cart(i){
-    const cart = getCart();
-    cart.itens.splice(i,1);
-    setCart(cart);
-    return cart;
+export function removeItemFromHotel_Cart(i) {
+    const hotel_cart = getCart();
+    hotel_cart.items.splice(i, 1);
+    setCart(hotel_cart);
+    return hotel_cart;
 }
-export function clearhotel_cart(){
+export function clearHotel_Cart() {
     setCart({
-        status: "draft",
-        itens:[]
-    });
+            status: "draft",
+            items: []
+        });
 }
 
-export function getTotals(){
-    const {itens} = getCart();
-    const total = itens.reduce((acc, it) => 
-    acc + Number(it.subtotal || 0),0);
-
+export function getTotalItems() {
+    const { items } = getCart();
+    const total = items.reduce((acc, it) => 
+        acc + Number(it.subtotal || 0), 0
+    );
     return {
         total,
-        qnt_itens:itens.length
+        qtde_items: items.length
     };
 }

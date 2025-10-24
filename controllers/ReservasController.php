@@ -21,5 +21,11 @@
             $result = ReservaModel::getById($conn, $id);
             return jsonResponse($result);
         }
-    }
+        
+        public static function searchByRequest($conn, $pedido_id) {
+        $result = ReservaModel::searchByRequest($conn, $pedido_id);
+        return jsonResponse($result);
+    }  
+}
+    
 ?>

@@ -6,7 +6,7 @@ class UploadController {
         "image/jpeg" => "jpg",
     ];
 
-    public static $path = __DIR__ ."/../uploads/";
+    static $path = __DIR__ ."/../uploads/";
 
     public static function normalizePictures($pictures){
         $files = [];
@@ -47,7 +47,7 @@ class UploadController {
                 continue;
             }
             if(($photo['size']??0 )> self::$maxSize){
-                $erros [] = "Excedeu o limite de ". self::$maxSize. "Mb - {photo: {$index})";
+                $erros[] = "Excedeu o limite de ". self::$maxSize. "Mb - {photo: {$index})";
                 continue;
             }
             $info = new \finfo(FILEINFO_MIME_TYPE);
@@ -64,9 +64,17 @@ class UploadController {
                 $erros[] = "Falha ao mover o arquivo";
                 continue;
             }
-            $saves[] = $photoName;
+            $saves[] = [
+                "name" => $photoName,
+                "path" => "//uploads//" . $photoName,
+                "type" => self::$typefiles[$mime]
+            ];
         }
-        return["files"=>$files,"erros"=>$erros,"saves"=>$saves];
+
+        return [
+            "files"=>$files,
+            "error"=>$erros,
+            "saves"=>$saves];
     }
 }
 

@@ -1,3 +1,31 @@
+
+export async function addRoom(formulario) {
+    const formData = new FormData(formulario);
+    const typeAccept = ['image/jpeg','image/png'];
+    const inputFotos = formulario.querySelector('#formeFileMultiple');
+    const imgs = inputFotos.files;
+
+    for(let i = 0; i < imgs.length; i++){
+        if(!typeAccept.includes(imgs[i].type)){
+            throw new Error(`Arquivo" ${imgs[i].name}"nao e suportado`)
+        }
+    }
+
+    const url = 'api/rooms';
+    const response = await fetch(url,{
+        method:"POST",
+        body:formData
+    });
+
+    if(!response.ok){
+        throw new Error(`Error ao enviar requisição: ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+}
+
+
+
 export async function listAllRoomsRequest({inicio,fim,qnt}) {
     
  const params = new URLSearchParams();

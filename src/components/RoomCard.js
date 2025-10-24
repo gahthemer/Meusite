@@ -1,16 +1,19 @@
 
-function calculoDiarias(checkin,checkout){
-    const checkin = "2026-01-01";
-    const checkout = "2026-01-08";
+function calculoDiaria() {
+    const checkIn = "2026-01-01";
+    const checkOut = "2026-01-08";
+    
+    const [yin, min, din] = String(checkIn).split("-").map(Number);
+    const [yout, mout, dout] = String(checkOut).split("-").map(Number);
 
-    const [yi,mi,di] = String(checkin).split("-").map(Number);
-    const [yout,mout,dout] = String(checkout).split("-").map(Number);
+    const tzin = Date.UTC(yin, min -1, din);
+    const tzout = Date.UTC(yout, mout -1, dout);
+    console.log("Milissegundos desde 1970-01-01 00:00:00 " +
+        tzin);
+    return Math.floor((tzout - tzin) / (1000 * 60 * 60 * 24));
 
-    const ti = Date.UTC(yi,mi -1,di);
-    const tout = Date.UTC(yout,mout -1,dout);
-
-    return Math.floor(tout - ti /(1000 * 60 * 60 * 24));
 }
+
 
 
 export default function RoomCard(itemCard, index = 0) {

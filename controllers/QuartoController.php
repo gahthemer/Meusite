@@ -9,25 +9,24 @@
         public static function create($conn,$data){
 
 
-            if(!isset($data['disponivel'])){
-                return jsonResponse(['message'=>"Erro no campo"]);
-            }
+            ValidateController::validate_data($data, ["nome", "numero", "qnt_casal", "qnt_solteiro", "preco", "disponivel"]);
 
-            $resultado = QuartoModel :: create($conn,$data);
-            if($resultado){
-              if($data['fotos']){
-                $picture = UploadController::upload($data['fotos']);
-                foreach($picture['saves'] as $name){
-                    $idfoto = FotoModel::create(($name['name']));
-                    if($idfoto){
-                        FotoModel::createRelationRoom($conn,$resultado,$idfoto);
+            $result = QuartoController::create($conn, $data);
+            if ($result){
+            if ($data['fotos']){
+                $pictures = UploadController::upload($data['fotos']);
+                foreach($pictures['saves'] as $name){
+                    $idPhoto = fotoModel::create($conn, $name['name']);
+                    if ($idPhoto){
+                        fotoModel::createRelationRoom($conn, $result, $idPhoto);
                     }
                 }
-              }
-            }else{
-               return jsonResponse(['message' => "Quarto nao reservado"], 404);
             }
+            return jsonResponse(['message'=>"Quarto criado com sucesso"]);
+        }else{
+            return jsonResponse(['message'=>"Erro ao criar o quarto"], 400);
         }
+    }
 
         public static function getAll($conn){
             $listaQuarto = QuartoModel::getAll($conn);
