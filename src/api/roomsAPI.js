@@ -11,18 +11,22 @@ export async function addRoom(formulario) {
         }
     }
 
-    const url = 'api/rooms';
+    const url = 'api/room';
     const response = await fetch(url,{
         method:"POST",
         body:formData
     });
 
-    if(!response.ok){
-        throw new Error(`Error ao enviar requisição: ${response.status}`);
+    let result = null;
+    try {
+        result = await response.json();
     }
-    const result = await response.json();
-    return result;
-}
+    catch {
+        result = null; }
+    if(!response.ok) {
+        throw new Error(`Erro ao enviar requisição: ${response.status}`);
+    }
+    return result; }   
 
 
 

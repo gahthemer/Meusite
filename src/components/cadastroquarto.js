@@ -39,6 +39,10 @@ export default function cadastroQuarto() {
                         <div class="invalid-feedback">O preço deve ser maior que zero.</div>
                     </div>
 
+                    <input name="fotos[]" type="file" multiple id="formFileMultiple"
+                        class="form-control" accept="image/*" 
+                    />
+
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="disponivel" checked>
                         <label class="form-check-label" for="disponivel">Quarto Disponível</label>
@@ -53,103 +57,6 @@ export default function cadastroQuarto() {
         </div>
     `;
 
-    function initForm() {
-        const form = container.querySelector('#formQuarto');
-        const btnSubmit = container.querySelector('#btnSubmit');
-        const spinner = btnSubmit.querySelector('.spinner-border');
-        const alertContainer = container.querySelector('#alertContainer');
-
-        
-        function showAlert(message, type = 'danger') {
-            alertContainer.innerHTML = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            `;
-        }
-
-        
-        function validateForm(dados) {
-            const quartos = JSON.parse(localStorage.getItem('quartos') || '[]');
-            const numeroExiste = quartos.some(q => q.numero === dados.numero);
-
-            if (numeroExiste) {
-                showAlert('Este número de quarto já está cadastrado.', 'warning');
-                container.querySelector('#numero').classList.add('is-invalid');
-                return false;
-            }
-
-            if (dados.preco <= 0) {
-                showAlert('O preço deve ser maior que zero.', 'danger');
-                container.querySelector('#preco').classList.add('is-invalid');
-                return false;
-            }
-
-            return true;
-        }
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            
-            container.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
-
-            const formData = new FormData(form);
-            const dados = {
-                nome: formData.get('nome').trim(),
-                numero: formData.get('numero').trim(),
-                camasCasal: parseInt(formData.get('camasCasal')) || 0,
-                camasSolteiro: parseInt(formData.get('camasSolteiro')) || 0,
-                preco: parseFloat(formData.get('preco')),
-                disponivel: formData.get('disponivel') === 'on',
-                id: Date.now().toString() // ID único
-            };
-
-            
-            if (!validateForm(dados)) return;
-
-            
-            btnSubmit.disabled = true;
-            spinner.classList.remove('d-none');
-
-           
-            setTimeout(() => {
-                try {
-                    const quartos = JSON.parse(localStorage.getItem('quartos') || '[]');
-                    quartos.push(dados);
-                    localStorage.setItem('quartos', JSON.stringify(quartos));
-
-                    showAlert('Quarto cadastrado com sucesso!', 'success');
-                    form.reset();
-                } catch (err) {
-                    showAlert('Erro ao salvar quarto. Tente novamente.', 'danger');
-                    console.error(err);
-                } finally {
-                    btnSubmit.disabled = false;
-                    spinner.classList.add('d-none');
-                }
-            }, 800);
-        });
-
-        
-        ['nome', 'numero', 'preco'].forEach(id => {
-            const input = container.querySelector(`#${id}`);
-            input.addEventListener('input', () => {
-                input.classList.remove('is-invalid');
-            });
-        });
-    }
-
-   
-    const observer = new MutationObserver((mutations, obs) => {
-        if (document.contains(container)) {
-            initForm();
-            obs.disconnect();
-        }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
 
     return container;
 }

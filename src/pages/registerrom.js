@@ -14,7 +14,7 @@ export default function renderRegisterQuartos() {
     divRoot.innerHTML = "";
     
     const formulario = cadastroquarto(); 
-    divRoot.appendChild(formulario);     
+    divRoot.appendChild(formulario);    
 
     
     const foot = document.getElementById("footer");
