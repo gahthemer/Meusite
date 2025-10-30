@@ -14,6 +14,7 @@ require_once __DIR__ . "/../controllers/AdicionaisController.php";
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "POST" ){
+        validationTokenAPI("Gerente");
         $data = json_decode( file_get_contents('php://input'), true );
         AdicionaisController::create($conn,$data);
     }

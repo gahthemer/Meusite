@@ -14,8 +14,14 @@ require_once __DIR__ . "/../controllers/ReservasController.php";
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "POST" ){
+        $opcao = $segments[2] ?? null;
         $data = json_decode( file_get_contents('php://input'), true );
-        ReservasController::create($conn,$data);
+
+        if($opcao == "reservas"){
+            ReservasController::searchByRequest($conn,$data);
+        }else{
+            ReservasController::searchByRequest($conn,$data);
+        }
     }
 
     elseif ($_SERVER['REQUEST_METHOD'] === "PUT" ){

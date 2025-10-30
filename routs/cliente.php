@@ -26,6 +26,7 @@ require_once __DIR__ . "/../controllers/ClienteController.php";
 
 
     elseif ( $_SERVER['REQUEST_METHOD'] === "DELETE" ){
+        validationTokenAPI(("gerente"));
         $id = $segments[2] ?? null;
 
         if(isset($id)){

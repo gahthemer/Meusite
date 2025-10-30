@@ -1,9 +1,10 @@
 <?php
     require_once __DIR__ . "/../models/AdicionalModel.php";
-
+     require_once "ValidateController.php";
     class AdicionaisController{
 
         public static function create($conn,$data){
+            ValidateController::validate_data($data, ["nome", "preco"]);
             $resultado = AdicionalModel :: create($conn,$data);
             if($resultado){
               return jsonResponse(['message' => "Adicional criado com sucesso"]);
@@ -32,6 +33,7 @@
         }
 
         public static function update($conn,$id,$data){
+            ValidateController::validate_data($data, ["nome", "preco"]);
             $Atualizado = AdicionalModel :: update($conn,$id,$data);
             if($Atualizado){
               return jsonResponse(['message' => "Adicional atualizado com sucesso"]);
